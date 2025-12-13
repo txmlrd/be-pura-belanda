@@ -15,7 +15,7 @@ module.exports = {
       if (!isPasswordValid) {
         return error(res, "Invalid password", 401);
       }
-      const token = await authService.getUserToken(user.id);
+      const token = await authService.getUserToken(user.id, user.email, user.role);
       return success(res, "Login successful", { token: token }, 200);
     } catch (e) {
       console.error(e);

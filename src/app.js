@@ -2,15 +2,18 @@ require("dotenv").config();
 const express = require("express");
 const PORT = process.env.PORT || 3000;
 const sequelize = require("./config/database");
+require("./models/index");
 require("./models/user.model");
 require("./models/membership.model");
 require("./models/event.model");
+require("./models/eventAttendee.model");
 
 // route import
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const membershipRoutes = require("./routes/membershipRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const eventAttendeeRoutes = require("./routes/eventAttendeeRoutes");
 const app = express();
 app.use(express.json());
 
@@ -19,6 +22,7 @@ app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/memberships", membershipRoutes);
 app.use("/events", eventRoutes);
+app.use("/events", eventAttendeeRoutes);
 //endpoint end
 
 //health check
