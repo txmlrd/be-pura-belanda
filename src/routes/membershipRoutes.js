@@ -5,6 +5,8 @@ const membershipController = require("../controllers/membershipController");
 
 router.post("/", membershipController.createMembership);
 
+router.get("/", membershipController.getAllMemberships);
+
 router.get("/user/:userId", membershipController.getMembershipByUserId);
 
 router.patch("/:id", membershipController.updateMembership);

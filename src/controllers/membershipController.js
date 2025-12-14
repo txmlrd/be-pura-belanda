@@ -11,6 +11,15 @@ module.exports = {
     }
   },
 
+  getAllMemberships: async (req, res) => {
+    try {
+      const memberships = await membershipService.getAllMemberships();  
+      success(res, "Memberships retrieved successfully", memberships, 200);
+    } catch (error) {
+      error(res, error.message, 400);
+    }
+  },
+
   getMembershipByUserId: async (req, res) => {
     try {
       const membership = await membershipService.getMembershipByUserId(req.params.userId);

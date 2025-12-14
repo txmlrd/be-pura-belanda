@@ -32,6 +32,10 @@ module.exports = {
     });
   },
 
+  getAllMemberships : async () => {
+    return await Membership.findAll();
+  },
+
   updateMembership: async (membershipId, data) => {
     const membership = await Membership.findByPk(membershipId);
     if (!membership) return null;

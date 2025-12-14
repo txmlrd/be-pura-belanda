@@ -1,9 +1,39 @@
 const { success, error } = require("../helpers/response");
 const authService = require("../services/authService");
 const User = require("../models/user.model");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 module.exports = {
+  register: async (req, res) => {
+    try {
+      const { full_name, email, password, number } = req.body;
+      const existingUser = await User.findOne({ where: { email: email } });
+      if (existingUser) {
+        return error(res, "Email already in use", 400);
+      }
+      const newUser = {
+        full_name,
+        email,
+        password: password,
+        number,
+      };
+      const user = await authService.authRegister(newUser);
+      return success(
+        res,
+        "User Registered Successfully",
+        {
+          id: user.id,
+          email: user.email,
+          full_name: user.full_name,
+          number: user.number,
+        },
+        201
+      );
+    } catch (e) {
+      console.error(e);
+      return error(res, "Registration Failed", 500);
+    }
+  },
   login: async (req, res) => {
     try {
       const { email, password } = req.body;

@@ -1,6 +1,12 @@
 const User = require("../models/user.model");
 
 module.exports = {
+  getMe: async (id) => {
+    return await User.findByPk(id, {
+      attributes: { exclude: ["password"] },
+    });
+  },
+
   createUser: async (data) => {
     return await User.create(data);
   },
@@ -30,5 +36,4 @@ module.exports = {
     await user.destroy();
     return true;
   },
-
 };
