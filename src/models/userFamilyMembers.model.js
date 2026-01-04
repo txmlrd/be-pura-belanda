@@ -4,10 +4,12 @@ const sequelize = require("../config/database");
 const UserFamilyMember = sequelize.define(
   "UserFamilyMember",
   {
-    id: {
-      type: DataTypes.INTEGER,
+    familyMemberId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      defaultValue: () => "FM-" + Math.random().toString(36).substr(2, 9).toUpperCase(),
       primaryKey: true,
-      autoIncrement: true,
     },
     user_id: {
       type: DataTypes.INTEGER,

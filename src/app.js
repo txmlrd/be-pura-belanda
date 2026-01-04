@@ -10,12 +10,14 @@ const authRoutes = require("./routes/authRoutes");
 const membershipRoutes = require("./routes/membershipRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const eventAttendeeRoutes = require("./routes/eventAttendeeRoutes");
+const userFamilyMemberRoutes = require("./routes/userFamilyMemberRoutes");
 const app = express();
 app.use(express.json());
 
 //endpoint start
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
+app.use("/users/family-members", userFamilyMemberRoutes);
 app.use("/memberships", membershipRoutes);
 app.use("/events", eventRoutes);
 app.use("/events", eventAttendeeRoutes);

@@ -5,6 +5,21 @@ module.exports = {
   addFamilyMember: async (userId, familyMemberData) => {
     const user = await User.findByPk(userId);
     if (!user) throw new Error("User not found");
+
+    if (!familyMemberData.name || !familyMemberData.relationship_status) {
+      throw new Error("Name and relationship status are required");
+    }
+
+    const checkExisting = await UserFamilyMember.findOne({
+      where: {
+        user_id: userId,
+        name: familyMemberData.name,
+        relationship_status: familyMemberData.relationship_status,
+      },
+    });
+    if (checkExisting) {
+      throw new Error("Family member already exists for this user");
+    }
     return await UserFamilyMember.create({
       user_id: userId,
       name: familyMemberData.name,

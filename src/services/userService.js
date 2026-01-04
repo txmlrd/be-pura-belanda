@@ -1,9 +1,11 @@
 const User = require("../models/user.model");
+const userFamilyMember = require("../models/userFamilyMembers.model");
 
 module.exports = {
   getMe: async (id) => {
     return await User.findByPk(id, {
       attributes: { exclude: ["password"] },
+      include: [{ model: userFamilyMember, as: "familyMembers" }],
     });
   },
 
