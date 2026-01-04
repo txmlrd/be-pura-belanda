@@ -17,7 +17,6 @@ module.exports = {
       payment_proof: data.payment_proof || null,
       status: "pending",
       primary_user_id: data.primary_user_id,
-      secondary_user_id: data.secondary_user_id || null,
     });
   },
 

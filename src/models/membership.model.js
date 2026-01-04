@@ -15,7 +15,7 @@ const Membership = sequelize.define(
     },
 
     package_type: {
-      type: DataTypes.ENUM("normal", "couple"),
+      type: DataTypes.ENUM("single", "family"),
       allowNull: false,
     },
 
@@ -42,11 +42,6 @@ const Membership = sequelize.define(
     primary_user_id: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-
-    secondary_user_id: {
-      type: DataTypes.STRING,
-      allowNull: true,
     },
   },
   {}

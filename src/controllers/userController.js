@@ -85,7 +85,7 @@ module.exports = {
   updateUser: async (req, res) => {
     try {
       const userId = req.user.id;
-      const allowedFields = ["full_name", "number", "password"]; // nanti bisa di buat dinamis sesuai kebutuhan
+      const allowedFields = ["full_name", "number", "password", "address"]; // nanti bisa di buat dinamis sesuai kebutuhan
 
       const forbiddenFields = Object.keys(req.body).filter((key) => !allowedFields.includes(key));
 

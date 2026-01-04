@@ -19,24 +19,28 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    full_name:{
+    name: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    role : {
+    role: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "user",
     },
-    membership_status : {
+    membership_status: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "inactive",
     },
-    number:{
+    number: {
       type: DataTypes.STRING,
       allowNull: true,
-    }
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     hooks: {
