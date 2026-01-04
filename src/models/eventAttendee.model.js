@@ -17,31 +17,42 @@ const EventAttendee = sequelize.define(
     event_id: {
       type: DataTypes.STRING,
       allowNull: false,
-      comment: "Reference to Event ID",
     },
 
     user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+
+    attendee_type: {
+      type: DataTypes.ENUM("user", "family"),
+      allowNull: false,
+    },
+
+    family_member_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    attendee_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      comment: "Reference to User ID",
     },
 
     is_present: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-      comment: "Attendance status (checked-in or not)",
     },
 
     qr_code_token: {
       type: DataTypes.STRING,
       allowNull: false,
-      comment: "Unique token for QR check-in",
+      unique: true,
     },
 
     checked_in_at: {
       type: DataTypes.DATE,
       allowNull: true,
-      comment: "Timestamp when attendee checked in",
     },
   },
   {
@@ -49,13 +60,25 @@ const EventAttendee = sequelize.define(
     indexes: [
       {
         unique: true,
-        fields: ["qr_code_token"],
+        fields: ["event_id", "user_id"],
+        where: { attendee_type: "user" },
       },
       {
         unique: true,
-        fields: ["event_id", "user_id"],
+        fields: ["event_id", "family_member_id"],
+        where: { attendee_type: "family" },
       },
     ],
+    validate: {
+      familyMemberRules() {
+        if (this.attendee_type === "family" && !this.family_member_id) {
+          throw new Error("family_member_id is required for family attendee");
+        }
+        if (this.attendee_type === "user" && this.family_member_id) {
+          throw new Error("family_member_id must be null for user attendee");
+        }
+      },
+    },
   }
 );
 

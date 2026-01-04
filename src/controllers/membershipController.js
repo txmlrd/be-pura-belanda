@@ -4,7 +4,7 @@ const { error, success } = require("../helpers/response");
 module.exports = {
   createMembership: async (req, res) => {
     try {
-      const membership = await membershipService.createMembership(req.body);
+      const membership = await membershipService.createMembership(req.user.id, req.body);
       success(res, "Membership created successfully", membership, 201);
     } catch (error) {
       error(res, error.message, 400);

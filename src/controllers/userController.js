@@ -29,7 +29,7 @@ module.exports = {
         {
           id: user.id,
           email: user.email,
-          full_name: user.full_name,
+          name: user.name,
           number: user.number,
         },
         201
@@ -85,7 +85,7 @@ module.exports = {
   updateUser: async (req, res) => {
     try {
       const userId = req.user.id;
-      const allowedFields = ["full_name", "number", "password", "address"]; // nanti bisa di buat dinamis sesuai kebutuhan
+      const allowedFields = ["name", "number", "password", "address"]; // nanti bisa di buat dinamis sesuai kebutuhan
 
       const forbiddenFields = Object.keys(req.body).filter((key) => !allowedFields.includes(key));
 

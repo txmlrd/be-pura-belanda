@@ -2,15 +2,16 @@
 const express = require("express");
 const router = express.Router();
 const membershipController = require("../controllers/membershipController");
+const auth = require("../middlewares/auth");
 
-router.post("/", membershipController.createMembership);
+router.post("/",auth, membershipController.createMembership);
 
-router.get("/", membershipController.getAllMemberships);
+router.get("/",auth, membershipController.getAllMemberships);
 
-router.get("/user/:userId", membershipController.getMembershipByUserId);
+router.get("/user/:userId", auth, membershipController.getMembershipByUserId);
 
-router.patch("/:id", membershipController.updateMembership);
+router.patch("/:id", auth, membershipController.updateMembership);
 
-router.delete("/:id", membershipController.deleteMembership);
+router.delete("/:id", auth,  membershipController.deleteMembership);
 
 module.exports = router;

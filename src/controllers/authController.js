@@ -6,13 +6,13 @@ const bcrypt = require("bcrypt");
 module.exports = {
   register: async (req, res) => {
     try {
-      const { full_name, email, password, number } = req.body;
+      const { name, email, password, number } = req.body;
       const existingUser = await User.findOne({ where: { email: email } });
       if (existingUser) {
         return error(res, "Email already in use", 400);
       }
       const newUser = {
-        full_name,
+        name,
         email,
         password: password,
         number,
@@ -24,7 +24,7 @@ module.exports = {
         {
           id: user.id,
           email: user.email,
-          full_name: user.full_name,
+          name: user.name,
           number: user.number,
         },
         201

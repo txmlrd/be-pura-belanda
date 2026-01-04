@@ -21,8 +21,7 @@ module.exports = {
         res,
         "Successfully registered to event",
         {
-          attendee_id: attendee.id,
-          qr_code_token: attendee.qr_code_token,
+          ...attendee
         },
         201
       );
