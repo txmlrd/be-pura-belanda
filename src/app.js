@@ -1,8 +1,9 @@
 require("dotenv").config();
+const cors = require("cors");
 const express = require("express");
 const PORT = process.env.PORT || 3000;
 const sequelize = require("./config/database");
-require("./models"); 
+require("./models");
 
 // route import
 const userRoutes = require("./routes/userRoutes");
@@ -13,6 +14,11 @@ const eventAttendeeRoutes = require("./routes/eventAttendeeRoutes");
 const userFamilyMemberRoutes = require("./routes/userFamilyMemberRoutes");
 const app = express();
 app.use(express.json());
+
+app.use(cors({
+  origin: "*",
+}));
+
 
 //endpoint start
 app.use("/users", userRoutes);
@@ -27,7 +33,6 @@ app.use("/events", eventAttendeeRoutes);
 app.get("/", (req, res) => {
   res.send("PURA BELANDA BACKEND SERVER. DO NOT ACCESS THIS SERVER DIRECTLY.");
 });
-
 
 // connect to db script
 (async () => {
